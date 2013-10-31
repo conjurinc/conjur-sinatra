@@ -7,17 +7,18 @@ module Conjur
         base.class_eval do
           class << self
             def configure!
-              $config = YAML.load(File.read('config.yml'))
+              require 'json'
+              require 'conjur/api'
+              require 'conjur/config'
               
-              ENV['CONJUR_ENV'] = $config[:env]
-              ENV['CONJUR_STACK'] = $config[:stack]
-              ENV['CONJUR_ACCOUNT'] = $config[:account]
+              Conjur::Config.merge JSON.parse(File.read('conjur.json'))
+              Conjur::Config.apply
             end
           end
 
           helpers do
-            def account; $config[:account]; end
-            def namespace;  $config[:namespace];  end
+            def account;   Conjur::Config[:account];   end
+            def namespace; Conjur::Config[:namespace]; end
           
             def request_headers
               env.inject({}){|acc, (k,v)| acc[$1.downcase] = v if k =~ /^http_(.*)/i; acc}
