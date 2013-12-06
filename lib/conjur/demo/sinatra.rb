@@ -32,10 +32,6 @@ module Conjur
               @api = Conjur::API::new_from_token token
             end
           end
-
-          before do
-            parse_authorization
-          end
         end
       end
     end
