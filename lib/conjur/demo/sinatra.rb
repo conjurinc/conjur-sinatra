@@ -11,14 +11,16 @@ module Conjur
               require 'conjur/api'
               require 'conjur/config'
               
-              Conjur::Config.merge JSON.parse(File.read('conjur.json'))
-              Conjur::Config.apply
+              if File.exists?('conjur.json')
+                Conjur::Config.merge JSON.parse(File.read('conjur.json'))
+                Conjur::Config.apply
+              end
             end
           end
 
           helpers do
-            def account;   Conjur::Config[:account];   end
-            def namespace; Conjur::Config[:namespace]; end
+            def account;   Conjur.configuration.account;   end
+            def namespace; ENV['CONJUR_NAMESPACE'] || Conjur::Config[:namespace]; end
           
             def request_headers
               env.inject({}){|acc, (k,v)| acc[$1.downcase] = v if k =~ /^http_(.*)/i; acc}
