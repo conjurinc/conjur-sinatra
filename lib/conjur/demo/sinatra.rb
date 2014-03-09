@@ -19,8 +19,8 @@ module Conjur
           end
 
           helpers do
-            def account;   Conjur.configuration.account;   end
-            def namespace; ENV['CONJUR_NAMESPACE'] || Conjur::Config[:namespace]; end
+            def account;   Conjur.configuration.account; end
+            def policy;    Conjur::Config[:policy];      end
           
             def request_headers
               env.inject({}){|acc, (k,v)| acc[$1.downcase] = v if k =~ /^http_(.*)/i; acc}
