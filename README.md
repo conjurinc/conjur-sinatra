@@ -1,12 +1,15 @@
-# Conjur::Demo::Sinatra
+# Conjur::Sinatra
 
-TODO: Write a gem description
+A module to include into Sinatra services. The module makes it easier to:
+
+* Parse incoming Authorization header into a Conjur token.
+* Provide the service with a host identity, which it can use to perform backend functions.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'conjur-demo-sinatra'
+    gem 'conjur-sinatra'
 
 And then execute:
 
@@ -14,7 +17,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install conjur-demo-sinatra
+    $ gem install conjur-sinatra
 
 ## Usage
 
