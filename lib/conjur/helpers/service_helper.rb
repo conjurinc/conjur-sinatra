@@ -2,7 +2,7 @@ module Conjur
   module Helpers
     module ServiceHelper
       def conjur_service_api
-        if ENV['CONJUR_SERVICE_LOGIN'] && ENV['CONJUR_SERVICE_API_KEY']
+        if (service_login = ENV['CONJUR_SERVICE_LOGIN']) && (service_api_key = ENV['CONJUR_SERVICE_API_KEY'])
           # Login from environment
           Conjur::API.new_from_key service_login, service_api_key
         else
