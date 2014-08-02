@@ -2,15 +2,10 @@ module Conjur
   module Helpers
     module ServiceHelper
       def conjur_service_api
-        if (service_login = ENV['CONJUR_SERVICE_LOGIN']) && (service_api_key = ENV['CONJUR_SERVICE_API_KEY'])
-          # Login from environment
-          Conjur::API.new_from_key service_login, service_api_key
-        else
-          # Login from .netrc
-          require 'conjur/cli'
-          require 'conjur/authn'
-          Conjur::Authn.connect
-        end
+        require 'conjur/cli'
+        require 'conjur/authn'
+        # Will login from CONJUR_AUTHN_LOGIN and CONJUR_AUTHN_API_KEY if available in the environment.
+        Conjur::Authn.connect
       end
       
       def policy_id
