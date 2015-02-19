@@ -9,7 +9,7 @@ module Conjur
       end
       
       def policy_id
-        ENV['CONJUR_POLICY_ID'] || policy['policy']
+        ENV['CONJUR_POLICY_ID'] || policy['policy'] or raise "No policy id is avaliable"
       end
       
       def policy
@@ -17,7 +17,7 @@ module Conjur
       end
       
       def policy_file_name
-        'policy.json'
+        ENV['POLICY_FILE'] || 'policy.json'
       end
     end
   end
